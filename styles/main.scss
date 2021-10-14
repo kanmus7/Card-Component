@@ -19,46 +19,103 @@ $SightlyTransparentWhite: hsla(0, 0%, 100%, 0.75);
 $SightlyTransparentWhiteHeadings : hsla(0, 0%, 100%, 0.6);
 
 
+@mixin displayFlex { 
+    display: flex;
+}
+
+@mixin height ($height) { 
+    height: $height;
+}
+
+@mixin width ($width) { 
+    width: $width;
+}
+
+@mixin maxWidth ($maxWidth) { 
+    max-width: $maxWidth;
+}
+
+@mixin maxHeight ($maxHeight) { 
+    max-height: $maxHeight;
+}
+
+@mixin fontWeight ($fontWeight) { 
+    font-weight: $fontWeight;
+}
+
+@mixin alingItems ($alingItems) { 
+    align-items: $alingItems;
+}
+
+@mixin background-color ($backgroundcolor) { 
+    background-color: $backgroundcolor;
+}
+
+@mixin padding ($padding) { 
+    padding: $padding;
+}
+
+@mixin fontSize ($fontSize) { 
+    font-size: $fontSize;
+}
+
+@mixin flexDirection ($flexDirection) { 
+    flex-direction: $flexDirection;
+}
+
+@mixin margin ($margin) { 
+    margin: $margin;
+}
+
+@mixin justifyContent ($justifyContent) { 
+    justify-content: $justifyContent;
+}
+
+@mixin borderRadius ($borderRadius) { 
+    border-radius: $borderRadius;
+}
+
+
 *{
     box-sizing: border-box;
 }
 
 html, body{
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-size: 15px
+    @include height(100%);
+    @include margin(0);
+    @include padding(0);
+    @include fontSize(15px);
 }
 
 body{
-    background-color: $VeryDarkBlue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include background-color($VeryDarkBlue);
+    @include displayFlex;
+    @include justifyContent(center);
+    @include alingItems(center);
 }
 
 .main-container{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    max-width: 1000px;
-    background-color: $DarkDesaturatedBlue;
-    max-height: 27rem;
-    border-radius: 7px;
+    @include displayFlex;
+    @include width(100%);
+    @include height(100%);
+    @include maxWidth(1000px);
+    @include background-color($DarkDesaturatedBlue);
+    @include maxHeight(27rem);
+    @include borderRadius(7px);
 }
 
 .left{
-    display: flex;
-    flex-direction: column;    
-    padding: 4rem;
+    @include displayFlex;
+    @include flexDirection(column);
+    @include padding(4rem);
     flex-basis: 50%;
 }
 
 .right{
     flex-basis: 50%;
-    height: 100%;
-    width: 100%;     
-    border-radius: 0 7px 7px 0;
+    @include height(100%);
+    @include width(100%);
+    @include borderRadius(0 7px 7px 0);
     background-image: url(../images/image-header-desktop.jpg);
     background-position: center;
     background-size: cover;
@@ -71,15 +128,15 @@ body{
     position:absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    @include width(100%);
+    @include height(100%);
     background-color: rgba(96, 15, 146, 0.5);    
 } 
 
 h1{
     font-family: 'Inter', sans-serif;
     color: $White;
-    font-size: 30px;
+    @include fontSize(30px);
     margin-top: 0;
     margin-bottom: 2rem;
 }
@@ -87,22 +144,22 @@ h1{
 p{
     font-family: 'Lexend Deca', sans-serif;
     color: $SightlyTransparentWhite;
-    margin: 0;
+    @include margin(0);
     line-height: 1.7;
 }
 
 .left-footer{
-    display: flex;
+    @include displayFlex;
+    @include justifyContent(space-between);
+    @include width(100%);
+    @include height(100%);
     padding-top: 3rem;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
 }
 
 .left-footerH2{
-    display: flex;
-    justify-content: center;
-    flex-direction: column; 
+    @include displayFlex;
+    @include justifyContent(center);
+    @include flexDirection(column);
     min-width: 110px;   
 }
 
@@ -111,9 +168,9 @@ h2{
     font-family: 'Inter', sans-serif;
     color: $SightlyTransparentWhiteHeadings;
     margin: 0;
-    font-size: 15px;
+    @include fontSize(15px);
+    @include fontWeight(lighter);
     letter-spacing: 2px;
-    font-weight: lighter;
 }
 
 .insights{
@@ -123,7 +180,51 @@ h2{
 .header{
     color: $White;
     font-family: 'Lexend Deca', sans-serif;
-    font-size: 25px; 
+    @include fontSize(25px); 
     letter-spacing: 0; 
-    font-weight: 500;  
+    @include fontWeight(500);  
+}
+
+@media screen and (max-width:700px) {
+
+    .main-container{
+        @include flexDirection(column-reverse);
+        @include maxWidth(377px);
+        @include maxHeight(49rem);
+        @include borderRadius(10px);
+        min-width: 400px;       
+        overflow-y: scroll;      
+    }
+
+    .right{
+        flex-basis: 0;
+        @include maxHeight(300px);
+        @include borderRadius(10px 10px 0 0);
+        min-height: 250px;
+    }
+
+    .left{
+        @include padding(3rem);
+        @include maxHeight(575px);
+        flex-basis: 0;
+    }
+
+    h1{
+        text-align: center;
+    }
+
+    p{
+        text-align: center;
+    }
+
+    .left-footer{
+        @include flexDirection(column);
+        @include alingItems(center);
+        @include justifyContent(0);
+        text-align: center;        
+    }
+
+    .left-footerH2{
+        padding-bottom: 20px;
+    }
 }
